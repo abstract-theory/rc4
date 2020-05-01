@@ -9,23 +9,11 @@ Implementation of the stream cipher - RC4 (Rivest Cipher 4)
 
 ## How to run:
 
-`Python 2 version`
+    $ python3 rc4.py
 
-    $ python2 rc4-2.py
+## To run the tests:
 
-###### To run the tests
-
-    $ python2 -m pytest rc4-2.py
-
-----
-
-`Python 3 version`
-
-    $ python3 rc4-3.py
-
-###### To run the tests
-
-    $ python3 -m pytest rc4-3.py
+    $ python3 -m unittest
 
 ## Licence
 [MIT](https://github.com/manojpandey/rc4/blob/master/LICENSE) | Copyright (c) 2017 Manoj Pandey
