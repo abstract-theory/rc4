@@ -20,7 +20,6 @@ def KSA(key):
     for i in range(MOD):
         j = (j + S[i] + key[i % key_length]) % MOD
         S[i], S[j] = S[j], S[i]  # swap values
-
     return S
 
 
@@ -41,36 +40,33 @@ def PRGA(S):
     while True:
         i = (i + 1) % MOD
         j = (j + S[i]) % MOD
-
         S[i], S[j] = S[j], S[i]  # swap values
         K = S[(S[i] + S[j]) % MOD]
         yield K
 
 
-def encrypt(key, plaintext):
+def encrypt(key, in_data):
     '''
-    args
-        key: Encryption key as a string. Characters may occupy full
-        8-bit range.
+    Function to encrypt/decrypt data.
 
-        plaintext: Plaintext to encrypt. Character may occupy full 8-bit
-        range.
+    args
+        key: Encryption key as a byte string.
+        in_data: input data as a byte string.
 
     return
-        res: Encrypted text as string.
+        out_data: output data as a byte string.
     '''
-    plaintext = [ord(c) for c in plaintext]
-    key = [ord(c) for c in key]
     keystream = PRGA(KSA(key))
-    dec = [chr(c^next(keystream)) for c in plaintext]
-    res = ''.join(dec)
-    return res
+    out_data = b""
+    for c in in_data:
+        out_data += (c^next(keystream)).to_bytes(1, 'little')
+    return out_data
 
 
 def demo():
 
-    key = 'not-so-random-key'  # plaintext
-    plaintext = 'Good work! Your implementation is correct'  # plaintext
+    key = b'not-so-random-key' # byte-string
+    plaintext = b'Good work! Your implementation is correct' # byte-string
 
     ciphertext = encrypt(key, plaintext) # encrypt
     decrypted = encrypt(key, ciphertext) # decrypt

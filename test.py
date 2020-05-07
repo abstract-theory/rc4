@@ -6,8 +6,8 @@ class TestMethods(unittest.TestCase):
 
     def test_rc4(self):
 
-        key = 'not-so-random-key'  # plaintext
-        plaintext = 'Good work! Your implementation is correct'  # plaintext
+        key = b'not-so-random-key'  # byte-string
+        plaintext = b'Good work! Your implementation is correct'  # byte-string
 
         ciphertext = rc4.encrypt(key, plaintext)
         decrypted = rc4.encrypt(key, ciphertext)
